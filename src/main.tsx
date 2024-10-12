@@ -6,8 +6,8 @@ import { theme } from './theme.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CssBaseline />
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} defaultMode='light'>
+      <CssBaseline />
       <App />
     </ThemeProvider>
   </StrictMode>,
