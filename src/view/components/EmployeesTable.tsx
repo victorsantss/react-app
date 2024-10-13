@@ -1,18 +1,11 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { EmployeesTableFilter } from './EmployeesTableFilter';
-import { Box, Container, SelectChangeEvent, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { EmployeeAvatar } from './EmployeeAvatar';
-
-interface Employee {
-  id: number;
-  nome: string;
-  cargo: string;
-  filial: string;
-  matricula: number;
-  dataAdmissao: string;
-}
+import { Employee } from '../../app/entities/Employee';
+import { EmployeeFilter } from '../../app/entities/EmployeeFilter';
 
 const columns: GridColDef[] = [
   {
@@ -57,17 +50,6 @@ export default function EmployeesTable() {
       });
   }, []);
 
-  const [filterType, setFilterType] = useState('');
-  const [filterValue, setFilterValue] = useState('');
-
-  const handleFilterTypeChange = (event: SelectChangeEvent) => {
-    setFilterType(event.target.value as string);
-  };
-
-  const handleFilterValueChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFilterValue(event.target.value);
-  }
-
   const rows = employeesData.map((employee) => {
     return {
       id: employee.id,
@@ -79,13 +61,14 @@ export default function EmployeesTable() {
     }
   })
 
+  function onSubmit(data: EmployeeFilter) {
+    console.log(data);
+  }
+
   return (
     <Container>
       <EmployeesTableFilter
-        handleFilterTypeChange={handleFilterTypeChange}
-        handleFilterValueChange={handleFilterValueChange}
-        filterType={filterType}
-        filterValue={filterValue}
+        onSubmit={onSubmit}
       />
       <Paper sx={{ height: 400, width: '100%' }}>
         <DataGrid
