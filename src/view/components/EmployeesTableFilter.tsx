@@ -51,6 +51,7 @@ export function EmployeesTableFilter({
                 <MenuItem value="nome">Funcionário</MenuItem>
                 <MenuItem value="filial">Filial</MenuItem>
                 <MenuItem value="matricula">Matrícula</MenuItem>
+                <MenuItem value="cargo">Cargo</MenuItem>
               </Select>
             )}
           />

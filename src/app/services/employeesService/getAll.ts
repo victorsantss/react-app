@@ -11,6 +11,7 @@ export async function getAll(filters?: EmployeesFilter) {
     nome: 'nome_like',
     filial: 'filial_like',
     matricula: 'matricula_like',
+    cargo: 'cargo_like',
   };
 
   const paramKey = filterMap[filterType];

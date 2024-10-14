@@ -92,6 +92,18 @@ export default function EmployeesTable() {
             pageSizeOptions={[5]}
             disableColumnMenu
             disableRowSelectionOnClick
+            slots={{
+              noRowsOverlay: () => (
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100%',
+                }}>
+                  Nenhum registro encontrado
+                </Box>
+              )
+            }}
           />
         )}
       </Paper>
