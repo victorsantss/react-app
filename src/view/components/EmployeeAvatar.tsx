@@ -10,7 +10,7 @@ export function EmployeeAvatar({ children }: { children: string }) {
         sx={{
           border: '2px solid',
           backgroundColor: 'transparent',
-          color: 'black',
+          color: 'grey.500',
           fontSize: 14,
         }}>
         {getInitials(children)}

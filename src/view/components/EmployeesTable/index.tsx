@@ -7,6 +7,7 @@ import { EmployeeAvatar } from '../EmployeeAvatar';
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { useEmployeesContext } from '../../../app/hooks/useEmployeesContext';
+import { ptBR } from '@mui/x-data-grid/locales';
 
 const paginationModel = { page: 0, pageSize: 5 };
 
@@ -73,7 +74,7 @@ export default function EmployeesTable() {
       <EmployeesTableFilter
         onFilterSubmit={onFilterSubmit}
       />
-      <Paper sx={{ height: 400, width: '100%' }}>
+      <Paper sx={{ height: 400, width: '100%', borderRadius: 6 }}>
         {isLoading && (
           <Box sx={{
             display: 'flex',
@@ -93,6 +94,10 @@ export default function EmployeesTable() {
             pageSizeOptions={[5]}
             disableColumnMenu
             disableRowSelectionOnClick
+            localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
+            sx={{
+              borderRadius: 6,
+            }}
             slots={{
               noRowsOverlay: () => (
                 <Box sx={{
