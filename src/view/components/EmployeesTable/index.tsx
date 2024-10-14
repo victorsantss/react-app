@@ -1,12 +1,10 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
-import { EmployeesTableFilter } from './EmployeesTableFilter';
 import { Box, CircularProgress, Container, Typography } from '@mui/material';
-import { EmployeeAvatar } from './EmployeeAvatar';
-import { Employee } from '../../app/entities/Employee';
-import { EmployeesFilter } from '../../app/entities/EmployeesFilter';
-import { useEmployees } from '../../app/hooks/useEmployees';
-import { useEffect, useState } from 'react';
+import { EmployeesTableFilter } from '../EmployeesTableFilter';
+import { useEmployeesTableController } from './useEmployeesTableController';
+import { EmployeeAvatar } from '../EmployeeAvatar';
+
 
 const columns: GridColDef[] = [
   {
@@ -41,27 +39,7 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 5 };
 
 export default function EmployeesTable() {
-  const [filters, setFilters] = useState<EmployeesFilter>();
-  const { employeesData, isLoading, refetchEmployees } = useEmployees(filters);
-
-  function onFilterSubmit(filter: EmployeesFilter) {
-    setFilters(filter);
-  }
-
-  useEffect(() => {
-    refetchEmployees();
-  }, [filters, refetchEmployees]);
-
-  const rows = employeesData?.map((employee: Employee) => {
-    return {
-      id: employee.id,
-      nome: employee.nome,
-      cargo: employee.cargo,
-      filial: employee.filial,
-      matricula: employee.matricula,
-      dataAdmissao: employee.dataAdmissao,
-    }
-  })
+  const { isLoading, onFilterSubmit, rows } = useEmployeesTableController();
 
   return (
     <Container>
