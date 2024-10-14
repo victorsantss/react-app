@@ -6,13 +6,11 @@ import IconButton from '@mui/material/IconButton';
 import { Link, useColorScheme } from '@mui/material';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import { useLocation } from 'react-router-dom';
 
 export function Header() {
+  const { pathname } = useLocation();
   const { mode, setMode } = useColorScheme();
-
-  if (!mode) {
-    return null;
-  }
 
   function handleToggleTheme() {
     setMode(mode === 'light' ? 'dark' : 'light');
@@ -34,8 +32,20 @@ export function Header() {
             Pesquisa de Funcionários
           </Typography>
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-            <Link href='/' color='inherit' underline='none'>Home</Link>
-            <Link href='/funcionarios' color='inherit' underline='none'>Funcionários</Link>
+            <Link
+              href='/'
+              color='inherit'
+              underline={pathname === '/' ? 'always' : 'hover'}
+            >
+              Home
+            </Link>
+            <Link
+              href='/funcionarios'
+              color='inherit'
+              underline={pathname === '/funcionarios' ? 'always' : 'hover'}
+            >
+              Funcionários
+            </Link>
             <IconButton onClick={handleToggleTheme} aria-label="themeSwitch" color='inherit'>
               {mode === 'light' ? (
                 <DarkModeOutlinedIcon />

@@ -1,6 +1,7 @@
-import { Box, Button, FormControl, Modal, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, IconButton, Modal, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import SaveIcon from '@mui/icons-material/Save';
+import CloseIcon from '@mui/icons-material/Close';
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Dayjs } from "dayjs";
@@ -9,6 +10,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import 'dayjs/locale/br';
 import toast from "react-hot-toast";
 import { useEmployeesContext } from "../../../../../app/hooks/useEmployeesContext";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const style = {
   position: 'absolute',
@@ -23,9 +26,27 @@ const style = {
   p: 4,
 };
 
+const schema = z.object({
+  nome: z.string().min(1, 'Informe o nome'),
+  matricula: z.string().min(1, 'Informe a matrícula'),
+  cargo: z.string().min(1, 'Informe o cargo'),
+  filial: z.string().min(1, 'Informe a filial'),
+  dataAdmissao: z.any().refine((value) => value !== null, {
+    message: 'Informe a data de admissão'
+  }),
+});
+
+type FormData = z.infer<typeof schema>;
+
 export function NewEmployeeModal() {
   const { isNewEmployeeModalOpen, closeNewEmployeeModal } = useEmployeesContext();
-  const { control, handleSubmit: hookFormSubmit, reset } = useForm({
+  const {
+    control,
+    handleSubmit: hookFormSubmit,
+    formState: { errors },
+    reset
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
     defaultValues: {
       nome: '',
       matricula: '',
@@ -73,6 +94,10 @@ export function NewEmployeeModal() {
             }}
           >
             <Typography variant="h4" textAlign="center" sx={{ width: "100%" }}>Novo Funcionário</Typography>
+            <IconButton onClick={closeNewEmployeeModal} sx={{ position: 'absolute', top: 8, right: 8 }}>
+              <CloseIcon />
+            </IconButton>
+
             <FormControl fullWidth>
               <Controller
                 name="nome"
@@ -84,9 +109,15 @@ export function NewEmployeeModal() {
                     variant="outlined"
                     size="small"
                     sx={{ width: "80%", margin: "0 auto" }}
+                    error={!!errors.nome}
                   />
                 )}
               />
+              {errors.nome && (
+                <Typography variant="caption" color="red" sx={{ width: "80%", margin: "0 auto" }}>
+                  {errors.nome.message}
+                </Typography>
+              )}
             </FormControl>
             <FormControl fullWidth>
               <Controller
@@ -99,9 +130,15 @@ export function NewEmployeeModal() {
                     variant="outlined"
                     size="small"
                     sx={{ width: "80%", margin: "0 auto" }}
+                    error={!!errors.matricula}
                   />
                 )}
               />
+              {errors.matricula && (
+                <Typography variant="caption" color="red" sx={{ width: "80%", margin: "0 auto" }}>
+                  {errors.matricula.message}
+                </Typography>
+              )}
             </FormControl>
             <FormControl fullWidth>
               <Controller
@@ -114,9 +151,15 @@ export function NewEmployeeModal() {
                     variant="outlined"
                     size="small"
                     sx={{ width: "80%", margin: "0 auto" }}
+                    error={!!errors.cargo}
                   />
                 )}
               />
+              {errors.cargo && (
+                <Typography variant="caption" color="red" sx={{ width: "80%", margin: "0 auto" }}>
+                  {errors.cargo.message}
+                </Typography>
+              )}
             </FormControl>
             <FormControl fullWidth>
               <Controller
@@ -129,9 +172,15 @@ export function NewEmployeeModal() {
                     variant="outlined"
                     size="small"
                     sx={{ width: "80%", margin: "0 auto" }}
+                    error={!!errors.filial}
                   />
                 )}
               />
+              {errors.filial && (
+                <Typography variant="caption" color="red" sx={{ width: "80%", margin: "0 auto" }}>
+                  {errors.filial.message}
+                </Typography>
+              )}
             </FormControl>
             <FormControl fullWidth>
               <Controller
@@ -149,7 +198,8 @@ export function NewEmployeeModal() {
                       sx={{ width: "80%", margin: "0 auto" }}
                       slotProps={{
                         textField: {
-                          size: "small"
+                          size: "small",
+                          error: !!errors.dataAdmissao
                         }
                       }}
                     />
