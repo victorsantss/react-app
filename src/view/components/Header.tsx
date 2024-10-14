@@ -6,10 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import { Link, useColorScheme } from '@mui/material';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import { useLocation } from 'react-router-dom';
 
 export function Header() {
-  const { pathname } = useLocation();
+  const pathname = window.location.pathname;
   const { mode, setMode } = useColorScheme();
 
   function handleToggleTheme() {

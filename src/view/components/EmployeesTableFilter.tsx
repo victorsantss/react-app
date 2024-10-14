@@ -46,6 +46,7 @@ export function EmployeesTableFilter({
             render={({ field }) => (
               <Select
                 label="Tipo de Filtro"
+                aria-label="Tipo de Filtro"
                 {...field}
               >
                 <MenuItem value="nome">Funcionário</MenuItem>
