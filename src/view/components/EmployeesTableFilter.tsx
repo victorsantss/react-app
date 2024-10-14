@@ -10,14 +10,14 @@ import {
 } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { Controller, useForm } from "react-hook-form";
-import { EmployeeFilter } from "../../app/entities/EmployeeFilter";
+import { EmployeesFilter } from "../../app/entities/EmployeesFilter";
 
 interface EmployeesTableFilterProps {
-  onSubmit: (data: EmployeeFilter) => void;
+  onFilterSubmit: (data: EmployeesFilter) => void;
 }
 
 export function EmployeesTableFilter({
-  onSubmit
+  onFilterSubmit
 }: EmployeesTableFilterProps) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -28,7 +28,7 @@ export function EmployeesTableFilter({
 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onFilterSubmit)}>
       <Box
         sx={{
           display: 'flex',

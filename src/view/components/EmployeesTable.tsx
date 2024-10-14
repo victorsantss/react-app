@@ -1,11 +1,12 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
-import { useEffect, useState } from 'react';
 import { EmployeesTableFilter } from './EmployeesTableFilter';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, CircularProgress, Container, Typography } from '@mui/material';
 import { EmployeeAvatar } from './EmployeeAvatar';
 import { Employee } from '../../app/entities/Employee';
-import { EmployeeFilter } from '../../app/entities/EmployeeFilter';
+import { EmployeesFilter } from '../../app/entities/EmployeesFilter';
+import { useEmployees } from '../../app/hooks/useEmployees';
+import { useEffect, useState } from 'react';
 
 const columns: GridColDef[] = [
   {
@@ -40,17 +41,18 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 5 };
 
 export default function EmployeesTable() {
-  const [employeesData, setEmployeesData] = useState([] as Employee[]);
+  const [filters, setFilters] = useState<EmployeesFilter>();
+  const { employeesData, isLoading, refetchEmployees } = useEmployees(filters);
+
+  function onFilterSubmit(filter: EmployeesFilter) {
+    setFilters(filter);
+  }
 
   useEffect(() => {
-    fetch('http://localhost:5000/funcionarios')
-      .then((response) => response.json())
-      .then((data) => {
-        setEmployeesData(data);
-      });
-  }, []);
+    refetchEmployees();
+  }, [filters, refetchEmployees]);
 
-  const rows = employeesData.map((employee) => {
+  const rows = employeesData?.map((employee: Employee) => {
     return {
       id: employee.id,
       nome: employee.nome,
@@ -61,24 +63,33 @@ export default function EmployeesTable() {
     }
   })
 
-  function onSubmit(data: EmployeeFilter) {
-    console.log(data);
-  }
-
   return (
     <Container>
       <EmployeesTableFilter
-        onSubmit={onSubmit}
+        onFilterSubmit={onFilterSubmit}
       />
       <Paper sx={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5]}
-          disableColumnMenu
-          disableRowSelectionOnClick
-        />
+        {isLoading && (
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}>
+            <CircularProgress />
+          </Box>
+        )}
+
+        {!isLoading && (
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{ pagination: { paginationModel } }}
+            pageSizeOptions={[5]}
+            disableColumnMenu
+            disableRowSelectionOnClick
+          />
+        )}
       </Paper>
     </Container>
 
