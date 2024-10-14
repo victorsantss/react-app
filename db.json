@@ -215,6 +215,14 @@
       "filial": "dd",
       "dataAdmissao": "",
       "id": 27
+    },
+    {
+      "nome": "Vanessa",
+      "matricula": "A029",
+      "cargo": "CFO",
+      "filial": "Bento",
+      "dataAdmissao": "09/10/2024",
+      "id": 28
     }
   ]
 }

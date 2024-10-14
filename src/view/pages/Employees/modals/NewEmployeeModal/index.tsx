@@ -8,6 +8,7 @@ import { employeesService } from "../../../../../app/services/employeesService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import 'dayjs/locale/br';
 import toast from "react-hot-toast";
+import { useEmployeesContext } from "../../../../../app/hooks/useEmployeesContext";
 
 const style = {
   position: 'absolute',
@@ -22,12 +23,8 @@ const style = {
   p: 4,
 };
 
-interface NewEmployeeModalProps {
-  open: boolean;
-  handleClose: () => void;
-}
-
-export function NewEmployeeModal({ open, handleClose }: NewEmployeeModalProps) {
+export function NewEmployeeModal() {
+  const { isNewEmployeeModalOpen, closeNewEmployeeModal } = useEmployeesContext();
   const { control, handleSubmit: hookFormSubmit, reset } = useForm({
     defaultValues: {
       nome: '',
@@ -52,7 +49,7 @@ export function NewEmployeeModal({ open, handleClose }: NewEmployeeModalProps) {
 
       queryClient.invalidateQueries({ queryKey: ['employees'] });
       toast.success('Funcionário criado com sucesso');
-      handleClose();
+      closeNewEmployeeModal();
       reset();
     } catch {
       toast.error('Erro ao criar novo funcionário');
@@ -61,8 +58,8 @@ export function NewEmployeeModal({ open, handleClose }: NewEmployeeModalProps) {
 
   return (
     <Modal
-      open={open}
-      onClose={handleClose}
+      open={isNewEmployeeModalOpen}
+      onClose={closeNewEmployeeModal}
     >
       <Box sx={style}>
         <form onSubmit={handleSubmit}>

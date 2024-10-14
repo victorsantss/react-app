@@ -1,26 +1,17 @@
-import { Container, Fab } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import { Container } from "@mui/material";
 import EmployeesTable from "../../components/EmployeesTable";
-import { useState } from "react";
 import { NewEmployeeModal } from "./modals/NewEmployeeModal";
+import { EmployeesProvider } from "../../../app/contexts/EmployeesContext";
+import { NewEmployeeButton } from "../../components/NewEmployeeButton";
 
 export function Employees() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   return (
-    <Container sx={{ maxWidth: 980, marginTop: 6 }}>
-      <EmployeesTable />
-      <Fab
-        sx={{ marginTop: 2, float: 'right', right: 24 }}
-        color="primary"
-        aria-label="add"
-        onClick={handleOpen}
-      >
-        <AddIcon />
-      </Fab>
-      <NewEmployeeModal open={open} handleClose={handleClose} />
-    </Container>
+    <EmployeesProvider>
+      <Container sx={{ maxWidth: 980, marginTop: 6 }}>
+        <EmployeesTable />
+        <NewEmployeeButton />
+        <NewEmployeeModal />
+      </Container>
+    </EmployeesProvider>
   )
 }
