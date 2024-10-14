@@ -1,10 +1,11 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
-import { Box, CircularProgress, Container, Typography } from '@mui/material';
+import { Box, CircularProgress, Container, IconButton, Typography } from '@mui/material';
 import { EmployeesTableFilter } from '../EmployeesTableFilter';
 import { useEmployeesTableController } from './useEmployeesTableController';
 import { EmployeeAvatar } from '../EmployeeAvatar';
-
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 
 const columns: GridColDef[] = [
   {
@@ -34,6 +35,31 @@ const columns: GridColDef[] = [
     headerName: 'Data de Entrada',
     flex: 1, align: 'center', headerAlign: 'center',
   },
+  {
+    field: 'actions',
+    headerName: 'Ações',
+    flex: 1,
+    sortable: false,
+    align: 'center',
+    headerAlign: 'center',
+    renderCell: (params) => (
+      <>
+        <IconButton
+          color="primary"
+          onClick={() => { console.log(`edit ${params.row.id}`) }}
+        >
+          <EditIcon />
+        </IconButton>
+        <IconButton
+          color="error"
+          onClick={() => {
+            console.log(`delete ${params.row.id}`)
+          }}>
+          <DeleteIcon />
+        </IconButton>
+      </>
+    )
+  }
 ];
 
 const paginationModel = { page: 0, pageSize: 5 };
