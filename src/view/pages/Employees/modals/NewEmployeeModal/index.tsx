@@ -7,6 +7,7 @@ import { Dayjs } from "dayjs";
 import { employeesService } from "../../../../../app/services/employeesService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import 'dayjs/locale/br';
+import toast from "react-hot-toast";
 
 const style = {
   position: 'absolute',
@@ -50,10 +51,11 @@ export function NewEmployeeModal({ open, handleClose }: NewEmployeeModalProps) {
       });
 
       queryClient.invalidateQueries({ queryKey: ['employees'] });
+      toast.success('Funcionário criado com sucesso');
       handleClose();
       reset();
     } catch {
-      alert('Erro ao criar novo funcionário');
+      toast.error('Erro ao criar novo funcionário');
     }
   })
 
