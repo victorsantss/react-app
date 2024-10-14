@@ -3,6 +3,7 @@ import EmployeesTable from "../../components/EmployeesTable";
 import { NewEmployeeModal } from "./modals/NewEmployeeModal";
 import { EmployeesProvider } from "../../../app/contexts/EmployeesContext";
 import { NewEmployeeButton } from "../../components/NewEmployeeButton";
+import { EditEmployeeModal } from "./modals/EditEmployeeModal";
 
 export function Employees() {
   return (
@@ -11,6 +12,7 @@ export function Employees() {
         <EmployeesTable />
         <NewEmployeeButton />
         <NewEmployeeModal />
+        <EditEmployeeModal />
       </Container>
     </EmployeesProvider>
   )

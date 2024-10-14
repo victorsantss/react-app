@@ -6,66 +6,68 @@ import { useEmployeesTableController } from './useEmployeesTableController';
 import { EmployeeAvatar } from '../EmployeeAvatar';
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-
-const columns: GridColDef[] = [
-  {
-    field: 'nome',
-    headerName: 'Funcionário',
-    width: 300,
-    headerAlign: 'center',
-    renderCell: (params) => (
-      <Box sx={{ display: 'flex', gap: 2 }}>
-        <EmployeeAvatar>{params.row.nome}</EmployeeAvatar>
-        <Box>
-          <Typography variant="body1">{params.row.nome}</Typography>
-          <Typography variant="body2">{params.row.cargo}</Typography>
-        </Box>
-      </Box>
-    ),
-  },
-  { field: 'filial', headerName: 'Filial', flex: 1, align: 'center', headerAlign: 'center' },
-  {
-    field: 'matricula',
-    headerName: 'Matrícula',
-    type: 'number',
-    flex: 1, align: 'center', headerAlign: 'center',
-  },
-  {
-    field: 'dataAdmissao',
-    headerName: 'Data de Entrada',
-    flex: 1, align: 'center', headerAlign: 'center',
-  },
-  {
-    field: 'actions',
-    headerName: 'Ações',
-    flex: 1,
-    sortable: false,
-    align: 'center',
-    headerAlign: 'center',
-    renderCell: (params) => (
-      <>
-        <IconButton
-          color="primary"
-          onClick={() => { console.log(`edit ${params.row.id}`) }}
-        >
-          <EditIcon />
-        </IconButton>
-        <IconButton
-          color="error"
-          onClick={() => {
-            console.log(`delete ${params.row.id}`)
-          }}>
-          <DeleteIcon />
-        </IconButton>
-      </>
-    )
-  }
-];
+import { useEmployeesContext } from '../../../app/hooks/useEmployeesContext';
 
 const paginationModel = { page: 0, pageSize: 5 };
 
 export default function EmployeesTable() {
   const { isLoading, onFilterSubmit, rows } = useEmployeesTableController();
+  const { openEditEmployeeModal } = useEmployeesContext();
+
+  const columns: GridColDef[] = [
+    {
+      field: 'nome',
+      headerName: 'Funcionário',
+      width: 300,
+      headerAlign: 'center',
+      renderCell: (params) => (
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <EmployeeAvatar>{params.row.nome}</EmployeeAvatar>
+          <Box>
+            <Typography variant="body1">{params.row.nome}</Typography>
+            <Typography variant="body2">{params.row.cargo}</Typography>
+          </Box>
+        </Box>
+      ),
+    },
+    { field: 'filial', headerName: 'Filial', flex: 1, align: 'center', headerAlign: 'center' },
+    {
+      field: 'matricula',
+      headerName: 'Matrícula',
+      type: 'number',
+      flex: 1, align: 'center', headerAlign: 'center',
+    },
+    {
+      field: 'dataAdmissao',
+      headerName: 'Data de Entrada',
+      flex: 1, align: 'center', headerAlign: 'center',
+    },
+    {
+      field: 'actions',
+      headerName: 'Ações',
+      flex: 1,
+      sortable: false,
+      align: 'center',
+      headerAlign: 'center',
+      renderCell: (params) => (
+        <>
+          <IconButton
+            color="primary"
+            onClick={() => openEditEmployeeModal(params.row)}
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            color="error"
+            onClick={() => {
+              console.log(`delete ${params.row.id}`)
+            }}>
+            <DeleteIcon />
+          </IconButton>
+        </>
+      )
+    }
+  ];
 
   return (
     <Container>
