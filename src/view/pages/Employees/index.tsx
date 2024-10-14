@@ -4,6 +4,7 @@ import { NewEmployeeModal } from "./modals/NewEmployeeModal";
 import { EmployeesProvider } from "../../../app/contexts/EmployeesContext";
 import { NewEmployeeButton } from "../../components/NewEmployeeButton";
 import { EditEmployeeModal } from "./modals/EditEmployeeModal";
+import { DeleteEmployeeModal } from "./modals/DeleteEmployeeModal";
 
 export function Employees() {
   return (
@@ -13,6 +14,7 @@ export function Employees() {
         <NewEmployeeButton />
         <NewEmployeeModal />
         <EditEmployeeModal />
+        <DeleteEmployeeModal />
       </Container>
     </EmployeesProvider>
   )

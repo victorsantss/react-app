@@ -12,7 +12,7 @@ const paginationModel = { page: 0, pageSize: 5 };
 
 export default function EmployeesTable() {
   const { isLoading, onFilterSubmit, rows } = useEmployeesTableController();
-  const { openEditEmployeeModal } = useEmployeesContext();
+  const { openEditEmployeeModal, openDeleteEmployeeModal } = useEmployeesContext();
 
   const columns: GridColDef[] = [
     {
@@ -59,9 +59,8 @@ export default function EmployeesTable() {
           </IconButton>
           <IconButton
             color="error"
-            onClick={() => {
-              console.log(`delete ${params.row.id}`)
-            }}>
+            onClick={() => openDeleteEmployeeModal(params.row.id)}
+          >
             <DeleteIcon />
           </IconButton>
         </>
