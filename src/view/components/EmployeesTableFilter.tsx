@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   FormControl,
+  IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
@@ -9,8 +11,10 @@ import {
   Typography
 } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
 import { Controller, useForm } from "react-hook-form";
 import { EmployeesFilter } from "../../app/entities/EmployeesFilter";
+import { useEmployees } from "../../app/hooks/useEmployees";
 
 interface EmployeesTableFilterProps {
   onFilterSubmit: (data: EmployeesFilter) => void;
@@ -25,7 +29,7 @@ export function EmployeesTableFilter({
       filterType: 'nome',
     }
   });
-
+  const { refetchEmployees } = useEmployees();
 
   return (
     <form onSubmit={handleSubmit(onFilterSubmit)}>
@@ -68,7 +72,22 @@ export function EmployeesTableFilter({
                 variant="outlined"
                 size="small"
                 slotProps={{
-                  htmlInput: { "data-testid": "digite" }
+                  htmlInput: { "data-testid": "digite" },
+                  input: {
+                    endAdornment: field.value ? (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => {
+                            field.onChange('');
+                            refetchEmployees();
+                          }}
+                          edge="end"
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ) : null,
+                  }
                 }}
               />
             )}
