@@ -36,7 +36,7 @@ export function Header() {
               color='inherit'
               underline={pathname === '/' ? 'always' : 'hover'}
             >
-              Home
+              Início
             </Link>
             <Link
               href='/funcionarios'
