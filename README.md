@@ -99,4 +99,6 @@ https://app-funcionarios.vercel.app/
 
 
 ## 🔨 Video da aplicação em uso
+https://github.com/user-attachments/assets/0ec53464-1c0a-48e2-a1c4-513069b8ba3f
+
 
