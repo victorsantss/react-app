@@ -67,6 +67,9 @@ export function EmployeesTableFilter({
                 label="Digite..."
                 variant="outlined"
                 size="small"
+                slotProps={{
+                  htmlInput: { "data-testid": "digite" }
+                }}
               />
             )}
           />
@@ -75,6 +78,7 @@ export function EmployeesTableFilter({
           type="submit"
           variant="outlined"
           endIcon={<SearchIcon />}
+          id="search-button"
         >
           Procurar
         </Button>

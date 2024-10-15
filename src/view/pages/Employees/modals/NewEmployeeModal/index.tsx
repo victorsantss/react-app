@@ -110,6 +110,9 @@ export function NewEmployeeModal() {
                     size="small"
                     sx={{ width: "80%", margin: "0 auto" }}
                     error={!!errors.nome}
+                    slotProps={{
+                      htmlInput: { "data-testid": "nome" }
+                    }}
                   />
                 )}
               />
@@ -131,6 +134,9 @@ export function NewEmployeeModal() {
                     size="small"
                     sx={{ width: "80%", margin: "0 auto" }}
                     error={!!errors.matricula}
+                    slotProps={{
+                      htmlInput: { "data-testid": "matricula" }
+                    }}
                   />
                 )}
               />
@@ -152,6 +158,9 @@ export function NewEmployeeModal() {
                     size="small"
                     sx={{ width: "80%", margin: "0 auto" }}
                     error={!!errors.cargo}
+                    slotProps={{
+                      htmlInput: { "data-testid": "cargo" }
+                    }}
                   />
                 )}
               />
@@ -173,6 +182,9 @@ export function NewEmployeeModal() {
                     size="small"
                     sx={{ width: "80%", margin: "0 auto" }}
                     error={!!errors.filial}
+                    slotProps={{
+                      htmlInput: { "data-testid": "filial" }
+                    }}
                   />
                 )}
               />
@@ -199,7 +211,8 @@ export function NewEmployeeModal() {
                       slotProps={{
                         textField: {
                           size: "small",
-                          error: !!errors.dataAdmissao
+                          error: !!errors.dataAdmissao,
+                          inputProps: { "data-testid": "dataAdmissao" }
                         }
                       }}
                     />
@@ -211,6 +224,7 @@ export function NewEmployeeModal() {
               type="submit"
               variant="contained"
               startIcon={<SaveIcon />}
+              id="save-new-employee-button"
             >
               Salvar Novo Funcionário
             </Button>
