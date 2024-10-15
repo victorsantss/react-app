@@ -55,12 +55,14 @@ export default function EmployeesTable() {
           <IconButton
             color="primary"
             onClick={() => openEditEmployeeModal(params.row)}
+            id="edit-employee-button"
           >
             <EditIcon />
           </IconButton>
           <IconButton
             color="error"
             onClick={() => openDeleteEmployeeModal(params.row.id)}
+            id="delete-employee-button"
           >
             <DeleteIcon />
           </IconButton>

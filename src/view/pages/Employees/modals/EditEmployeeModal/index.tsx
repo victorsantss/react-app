@@ -218,6 +218,7 @@ export function EditEmployeeModal() {
               type="submit"
               variant="contained"
               startIcon={<SaveIcon />}
+              id="edit-employee-button"
             >
               Editar Funcionário
             </Button>

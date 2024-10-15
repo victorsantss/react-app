@@ -9,6 +9,7 @@ export function NewEmployeeButton() {
     <Fab
       sx={{ marginTop: 2, float: 'right', right: 24 }}
       color="primary"
+      id="new-employee-button"
       aria-label="add"
       onClick={openNewEmployeeModal}
     >

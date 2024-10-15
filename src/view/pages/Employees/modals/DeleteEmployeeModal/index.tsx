@@ -64,6 +64,7 @@ export function DeleteEmployeeModal() {
             onClick={handleDeleteEmployee}
             variant="outlined"
             color="error"
+            id="confirm-delete-employee"
           >
             Excluir Funcionário
           </Button>
